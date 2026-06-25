@@ -2,8 +2,9 @@ import { Canvas, useFrame } from "@react-three/fiber";
 import { Float, MeshDistortMaterial, Stars, Sphere, TorusKnot, Icosahedron } from "@react-three/drei";
 import { Suspense, useRef } from "react";
 import * as THREE from "three";
+import { useTheme } from "./ThemeProvider";
 
-function FloatingKnot() {
+function FloatingKnot({ color, emissive }: { color: string; emissive: string }) {
   const ref = useRef<THREE.Mesh>(null);
   useFrame((state) => {
     if (!ref.current) return;
@@ -14,8 +15,8 @@ function FloatingKnot() {
     <Float speed={1.4} rotationIntensity={0.6} floatIntensity={1.2}>
       <TorusKnot ref={ref} args={[1, 0.32, 220, 32]} position={[0, 0, 0]}>
         <MeshDistortMaterial
-          color="#22d3ee"
-          emissive="#a855f7"
+          color={color}
+          emissive={emissive}
           emissiveIntensity={0.35}
           roughness={0.15}
           metalness={0.85}
@@ -47,18 +48,23 @@ function OrbitingShape({ radius, speed, phase, color, shape }: { radius: number;
 }
 
 export default function Scene3D() {
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
+  const primary = isDark ? "#22d3ee" : "#3b5bdb";
+  const accent = isDark ? "#a855f7" : "#7c3aed";
+  const tertiary = isDark ? "#f0abfc" : "#ec4899";
   return (
     <Canvas camera={{ position: [0, 0, 5], fov: 50 }} dpr={[1, 2]} gl={{ antialias: true, alpha: true }}>
       <Suspense fallback={null}>
-        <ambientLight intensity={0.4} />
-        <pointLight position={[5, 5, 5]} intensity={1.2} color="#22d3ee" />
-        <pointLight position={[-5, -3, -5]} intensity={1} color="#a855f7" />
+        <ambientLight intensity={isDark ? 0.4 : 0.7} />
+        <pointLight position={[5, 5, 5]} intensity={1.2} color={primary} />
+        <pointLight position={[-5, -3, -5]} intensity={1} color={accent} />
         <directionalLight position={[0, 5, 5]} intensity={0.6} />
-        <Stars radius={50} depth={50} count={2500} factor={3} saturation={0} fade speed={1} />
-        <FloatingKnot />
-        <OrbitingShape radius={2.4} speed={0.6} phase={0} color="#22d3ee" shape="sphere" />
-        <OrbitingShape radius={2.4} speed={0.6} phase={2.1} color="#a855f7" shape="ico" />
-        <OrbitingShape radius={2.4} speed={0.6} phase={4.2} color="#f0abfc" shape="sphere" />
+        {isDark && <Stars radius={50} depth={50} count={2500} factor={3} saturation={0} fade speed={1} />}
+        <FloatingKnot color={primary} emissive={accent} />
+        <OrbitingShape radius={2.4} speed={0.6} phase={0} color={primary} shape="sphere" />
+        <OrbitingShape radius={2.4} speed={0.6} phase={2.1} color={accent} shape="ico" />
+        <OrbitingShape radius={2.4} speed={0.6} phase={4.2} color={tertiary} shape="sphere" />
       </Suspense>
     </Canvas>
   );
