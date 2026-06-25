@@ -1,8 +1,9 @@
 import { lazy, Suspense } from "react";
 import { motion } from "framer-motion";
-import { Github, Mail, Phone, MapPin, ExternalLink, Code2, Brain, Sparkles, ArrowRight } from "lucide-react";
+import { Github, Mail, Phone, MapPin, ExternalLink, Code2, Brain, Sparkles, ArrowRight, Sun, Moon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { useTheme } from "@/components/ThemeProvider";
 
 const Scene3D = lazy(() => import("./Scene3D"));
 
@@ -52,6 +53,7 @@ const fadeUp = {
 };
 
 function Nav() {
+  const { theme, toggle } = useTheme();
   return (
     <header className="fixed top-0 inset-x-0 z-50 backdrop-blur-xl bg-background/40 border-b border-border/40">
       <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -65,11 +67,20 @@ function Nav() {
           <a href="#skills" className="hover:text-foreground transition-colors">Stack</a>
           <a href="#contact" className="hover:text-foreground transition-colors">Contact</a>
         </nav>
-        <Button asChild size="sm" variant="outline" className="border-primary/40 hover:bg-primary/10 hover:text-primary">
-          <a href="mailto:namansanil3@gmail.com">
-            Get in touch <ArrowRight className="ml-1 h-3.5 w-3.5" />
-          </a>
-        </Button>
+        <div className="flex items-center gap-2">
+          <button
+            onClick={toggle}
+            aria-label="Toggle theme"
+            className="h-9 w-9 inline-flex items-center justify-center rounded-md border border-border hover:bg-secondary text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+          </button>
+          <Button asChild size="sm" variant="outline" className="border-primary/40 hover:bg-primary/10 hover:text-primary">
+            <a href="mailto:namansanil3@gmail.com">
+              Get in touch <ArrowRight className="ml-1 h-3.5 w-3.5" />
+            </a>
+          </Button>
+        </div>
       </div>
     </header>
   );
