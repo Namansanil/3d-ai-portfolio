@@ -78,16 +78,38 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "Naman Sanil — Full-Stack AI Developer" },
+      {
+        name: "description",
+        content:
+          "Portfolio of Naman Sanil — Full-Stack AI Developer & Software Engineer. Building production-grade marketplaces, booking systems and intelligent agents with React, Node.js and modern AI tooling.",
+      },
+      { name: "author", content: "Naman Sanil" },
+      { name: "keywords", content: "Naman Sanil, Full-Stack Developer, AI Developer, React, Node.js, TypeScript, Portfolio" },
+      // Open Graph
+      { property: "og:title", content: "Naman Sanil — Full-Stack AI Developer" },
+      {
+        property: "og:description",
+        content: "Building production-grade marketplaces, booking systems and intelligent agents with React, Node.js and modern AI tooling.",
+      },
       { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Lovable" },
+      { property: "og:url", content: "https://3d-ai-portfolio.vercel.app" },
+      { property: "og:image", content: "https://3d-ai-portfolio.vercel.app/og-image.png" },
+      { property: "og:image:width", content: "1200" },
+      { property: "og:image:height", content: "630" },
+      { property: "og:site_name", content: "Naman Sanil Portfolio" },
+      // Twitter / X
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "Naman Sanil — Full-Stack AI Developer" },
+      {
+        name: "twitter:description",
+        content: "Building production-grade marketplaces, booking systems and intelligent agents.",
+      },
+      { name: "twitter:image", content: "https://3d-ai-portfolio.vercel.app/og-image.png" },
     ],
     links: [
+      // Favicon
+      { rel: "icon", type: "image/svg+xml", href: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌊</text></svg>" },
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "" },
       {
